@@ -12,23 +12,23 @@ public class RollManager
     RoundManager rm;
 
     public bool complete = false;
+    List<int> diceValues = new List<int>();
 
     public RollManager(GameManager gm, RoundManager rm) {
         this.gm = gm;
         this.rm = rm;
 
-        gm.StartCoroutine(WaitToRoll());
+        gm.StartCoroutine(Roll());
     }
 
-    // Check if the dice are still moving
-    bool DiceHaveSettled() {
-        foreach (Dice dice in PlayerData.dice) {
-            if (!dice.hasSettled) return false;
-        }
-
-        return true;
+    IEnumerator Roll() {
+        yield return WaitToRoll();
+        yield return CountDice();
+        yield return ScoreTheDice();
+        
+        PlayerData.performRoll = false;
+        complete = true;
     }
-
 
     // Wait for input then roll dice
     IEnumerator WaitToRoll() {
@@ -48,7 +48,6 @@ public class RollManager
         }
 
         PlayerData.performRoll = false;
-        gm.StartCoroutine(CountDice());
     }
 
 
@@ -56,7 +55,6 @@ public class RollManager
     IEnumerator CountDice() {
         yield return new WaitUntil(() => DiceHaveSettled());
 
-        List<int> diceValues = new List<int>();
         foreach (Dice dice in PlayerData.dice) {
             // Dice value
             int diceValue = dice.CalculateValue();
@@ -64,17 +62,21 @@ public class RollManager
 
             yield return new WaitForSeconds(0.25f);
         }
-
-        yield return ScoreTheDice(diceValues);
     }
 
     // Display the final score
-    IEnumerator ScoreTheDice(List<int> diceValues) {
+    IEnumerator ScoreTheDice() {
         yield return new WaitForSeconds(0.5f);
 
         PlayerData.score += Score.Calculate(diceValues);
-        PlayerData.performRoll = false;
-        complete = true;
     }
-    
+
+    // Check if the dice are still moving
+    bool DiceHaveSettled() {
+        foreach (Dice dice in PlayerData.dice) {
+            if (!dice.hasSettled) return false;
+        }
+
+        return true;
+    }
 }
