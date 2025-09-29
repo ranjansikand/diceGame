@@ -29,7 +29,15 @@ public class RoundManager
         }
 
         Debug.Log("Round complete");
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(0.5f);
+
+        // Payout
+        if (PlayerData.score >= GameManager.scoreThreshold) {
+            Payroll.Payout();
+            yield return new WaitForSeconds(1f);
+        }
+        
+
         complete = true;
     }
 

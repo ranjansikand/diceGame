@@ -59,11 +59,6 @@ public class Dice : MonoBehaviour
         if (rolled != null) rolled(this);
     }
 
-    IEnumerator WaitToSettle() {
-        yield return new WaitUntil(() => hasSettled);
-        CalculateValue();
-    }
-
     public int CalculateValue() {
         Vector3[] vectors = { transform.forward, transform.up, transform.right };
         float max = -1f;

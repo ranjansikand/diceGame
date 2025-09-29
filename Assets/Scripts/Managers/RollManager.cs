@@ -68,7 +68,7 @@ public class RollManager
     IEnumerator ScoreTheDice() {
         yield return new WaitForSeconds(0.5f);
 
-        PlayerData.score += Score.Calculate(diceValues);
+        yield return Score.Calculate();
     }
 
     // Check if the dice are still moving
