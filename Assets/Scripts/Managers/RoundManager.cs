@@ -15,7 +15,7 @@ public class RoundManager
         this.gm = gm;
         
         // Reset data
-        PlayerData.score = 0;
+        GameManager.roundScore = GameManager.scoreThreshold;
         PlayerData.rolls = PlayerData.maxRolls;
 
 
@@ -32,7 +32,7 @@ public class RoundManager
         yield return new WaitForSeconds(0.5f);
 
         // Payout
-        if (PlayerData.score >= GameManager.scoreThreshold) {
+        if (GameManager.roundScore <= 0) {
             Payroll.Payout();
             yield return new WaitForSeconds(1f);
         }
@@ -42,6 +42,6 @@ public class RoundManager
     }
 
     bool RoundComplete() {
-        return (PlayerData.rolls <= 0 || PlayerData.score >= GameManager.scoreThreshold);
+        return (PlayerData.rolls <= 0 || GameManager.roundScore <= 0);
     }
 }

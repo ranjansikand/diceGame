@@ -1,6 +1,7 @@
 // Displays the value of a dice
 
 
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
@@ -33,6 +34,13 @@ public class DieCounters : MonoBehaviour
         TMP_Text tracker = GetTracker();
         tracker.transform.position = Camera.main.WorldToScreenPoint(dice.transform.position);
         tracker.text = dice.value.ToString();
+
+        StartCoroutine(DeactivateTracker(tracker));
+    }
+
+    private IEnumerator DeactivateTracker(TMP_Text tracker) {
+        yield return Data.halfSecond;
+        tracker.gameObject.SetActive(false);
     }
     
     

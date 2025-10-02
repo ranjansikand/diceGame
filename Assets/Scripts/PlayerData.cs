@@ -8,9 +8,11 @@ public static class PlayerData {
     public delegate void PlayerDataUpdate(int amount);
     public static PlayerDataUpdate moneyUpdated, rollsUpdated, maxRollsUpdated;
     public static PlayerDataUpdate scoreUpdated, pointsUpdated, multipleUpdated;
+    public static PlayerDataUpdate diceUpdated;
 
     // Variables
     public static List<Dice> dice;
+    public static List<Card> cards;
     public static bool performRoll = false;
     
 
@@ -55,24 +57,6 @@ public static class PlayerData {
     #endregion
 
     #region Scoring
-    private static int _pointValue = 0;
-    public static int pointValue {
-        get { return _pointValue; }
-        set {
-            _pointValue = value;
-            if (pointsUpdated != null) pointsUpdated(0);
-        }
-    }
-
-    private static int _multiplier = 1;
-    public static int multiplier {
-        get { return _multiplier; }
-        set {
-            _multiplier = value;
-            if (multipleUpdated != null) multipleUpdated(0);
-        }
-    }
-    
     private static int _score = 0;
     public static int score {
         get { return _score; }

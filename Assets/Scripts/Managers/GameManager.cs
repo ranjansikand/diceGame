@@ -7,7 +7,19 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
+    public delegate void GameEvent();
+    public static GameEvent scoreUpdated;
+
     public static int scoreThreshold { get; private set; } = 20;
+    
+    private static int _roundScore { get; set; }
+    public static int roundScore {
+        get { return _roundScore; }
+        set {
+            _roundScore = (int)Mathf.Max(value, 0);
+            if (scoreUpdated != null) scoreUpdated();
+        }
+    }
 
     private void Start() {
         StartCoroutine(Gameplay());
@@ -26,6 +38,6 @@ public class GameManager : MonoBehaviour
     }
 
     bool PlayerLost() {
-        return PlayerData.rolls <= 0 && PlayerData.score < scoreThreshold;
+        return PlayerData.rolls <= 0 && roundScore > 0;
     }
 }

@@ -19,6 +19,6 @@ public class ScoreCounter : MonoBehaviour
     }
 
     private void UpdateCounter(int change) {
-        scoreCounter.text = PlayerData.score.ToString();
+        scoreCounter.text = PlayerData.score == 0 ? "" : PlayerData.score.ToString();
     }
 }

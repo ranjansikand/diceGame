@@ -15,6 +15,7 @@ public class RollManager
     List<int> diceValues = new List<int>();
 
     public RollManager(GameManager gm, RoundManager rm) {
+        Debug.Log("Roll manager launched");
         this.gm = gm;
         this.rm = rm;
 
@@ -23,8 +24,12 @@ public class RollManager
 
     IEnumerator Roll() {
         yield return WaitToRoll();
-        yield return CountDice();
+        yield return new WaitUntil(() => DiceHaveSettled());
         yield return ScoreTheDice();
+
+        // Tabulate the score
+        GameManager.roundScore -= PlayerData.score;
+        PlayerData.score = 0;
         
         PlayerData.performRoll = false;
         complete = true;
@@ -50,19 +55,6 @@ public class RollManager
         PlayerData.performRoll = false;
     }
 
-
-    // Wait for the roll to finish and count the dice
-    IEnumerator CountDice() {
-        yield return new WaitUntil(() => DiceHaveSettled());
-
-        foreach (Dice dice in PlayerData.dice) {
-            // Dice value
-            int diceValue = dice.CalculateValue();
-            diceValues.Add(diceValue);
-
-            yield return new WaitForSeconds(0.25f);
-        }
-    }
 
     // Display the final score
     IEnumerator ScoreTheDice() {
