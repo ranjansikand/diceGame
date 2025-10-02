@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 public static class PlayerData {
     // Monitored events
-    public delegate void PlayerDataUpdate(int amount);
+    public delegate void PlayerDataUpdate();
     public static PlayerDataUpdate moneyUpdated, rollsUpdated, maxRollsUpdated;
     public static PlayerDataUpdate scoreUpdated, pointsUpdated, multipleUpdated;
     public static PlayerDataUpdate diceUpdated;
@@ -23,7 +23,7 @@ public static class PlayerData {
         set {
             _money = value;
             int change = value - _money;
-            if (moneyUpdated != null) moneyUpdated(change);
+            if (moneyUpdated != null) moneyUpdated();
         }
     }
 
@@ -41,7 +41,7 @@ public static class PlayerData {
         set {
             _rolls = value;
             int change = value - _rolls;
-            if (rollsUpdated != null) rollsUpdated(change);
+            if (rollsUpdated != null) rollsUpdated();
         }
     }
     
@@ -51,7 +51,7 @@ public static class PlayerData {
         set {
             _maxRolls = value;
             int change = value - _maxRolls;
-            if (maxRollsUpdated != null) maxRollsUpdated(change);
+            if (maxRollsUpdated != null) maxRollsUpdated();
         }
     }
     #endregion
@@ -63,7 +63,7 @@ public static class PlayerData {
         set {
             _score = value;
             int change = value - _score;
-            if (scoreUpdated != null) scoreUpdated(change);
+            if (scoreUpdated != null) scoreUpdated();
         }
     }
     #endregion

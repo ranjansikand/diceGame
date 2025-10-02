@@ -12,7 +12,7 @@ public class Single : Card
 
     public override IEnumerator Check() {
         foreach (Dice die in PlayerData.dice) {
-            if (die.CalculateValue() == condition) {
+            if (die.value == condition) {
                 AddOperator();
                 yield return Data.quarterSecond;
             }

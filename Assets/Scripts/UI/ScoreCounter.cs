@@ -10,15 +10,17 @@ public class ScoreCounter : MonoBehaviour
 
     private void OnEnable() {
         PlayerData.scoreUpdated += UpdateCounter;
+    }
 
-        UpdateCounter(0);
+    private void Start() {
+        UpdateCounter();
     }
 
     private void OnDisable() {
         PlayerData.scoreUpdated -= UpdateCounter;
     }
 
-    private void UpdateCounter(int change) {
+    private void UpdateCounter() {
         scoreCounter.text = PlayerData.score == 0 ? "" : PlayerData.score.ToString();
     }
 }
