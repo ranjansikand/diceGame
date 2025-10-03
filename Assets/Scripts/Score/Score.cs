@@ -22,7 +22,7 @@ public static class Score
     }
 
     private static IEnumerator Cards() {
-        foreach (Card card in PlayerData.cards) {
+        foreach (Card card in CardDisplay.displayedCards) {
             yield return card.Check();
         }
     }

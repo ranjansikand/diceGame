@@ -6,9 +6,9 @@ using UnityEngine;
 
 public class CardDisplay : MonoBehaviour
 {
-    [SerializeField] CardUI cardPrefab;
+    [SerializeField] Card cardPrefab;
 
-    List<CardUI> displayedCards = new List<CardUI>();
+    public static List<Card> displayedCards = new List<Card>();
 
     private void OnEnable() {
         Inventory.cardsUpdated += UpdateCards;
@@ -25,8 +25,8 @@ public class CardDisplay : MonoBehaviour
     private void UpdateCards(int index = 0) {
         if (displayedCards.Count == 0 && PlayerData.cards.Count > 0) {
             // Draw all the cards
-            foreach (Card card in PlayerData.cards) {
-                CardUI newCard = Instantiate(cardPrefab, transform);
+            foreach (CardData card in PlayerData.cards) {
+                Card newCard = Instantiate(cardPrefab, transform);
                 newCard.Create(card, this);
                 displayedCards.Add(newCard);
             }
@@ -35,7 +35,7 @@ public class CardDisplay : MonoBehaviour
             Destroy(displayedCards[index]);
             displayedCards.RemoveAt(index);
         } else if (displayedCards.Count < PlayerData.cards.Count) {
-            CardUI newCard = Instantiate(cardPrefab, transform);
+            Card newCard = Instantiate(cardPrefab, transform);
             newCard.Create(PlayerData.cards[index], this);
             displayedCards.Add(newCard);
         }

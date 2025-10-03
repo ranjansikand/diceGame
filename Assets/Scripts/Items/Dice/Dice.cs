@@ -15,11 +15,11 @@ public class Dice : MonoBehaviour
     Vector3[] directions;
 
     // Map directions to die numbers (adjust this mapping for your model!)
-    [SerializeField] private int[] values = new int[6] { 2, 1, 3, 5, 6, 4 };
+    [SerializeField] private DiceData diceData;
     // Order: [0]=forward, [1]=up, [2]=right, [3]=back, [4]=down, [5]=left
 
     public bool hasSettled { get { return rb.IsSleeping(); }}
-    public int value;
+    public int value { get; set; }
 
     void Awake() {
         rb = GetComponent<Rigidbody>();
@@ -74,7 +74,7 @@ public class Dice : MonoBehaviour
             }
         }
 
-        value = values[sideIndex];
+        value = diceData.values[sideIndex];
 
         if (valueCalculated != null) valueCalculated(this);
         return value;

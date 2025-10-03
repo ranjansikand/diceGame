@@ -6,14 +6,14 @@ public static class Inventory
     public delegate void InventoryUpdate(int i);
     public static InventoryUpdate cardsUpdated;
 
-    public static void AddCard(Card card) {
+    public static void AddCard(CardData card) {
         PlayerData.cards.Add(card);
         int index = PlayerData.cards.Count - 1;
 
         if (cardsUpdated != null) cardsUpdated(index);
     }
 
-    public static void RemoveCard(Card card) {
+    public static void RemoveCard(CardData card) {
         int index = PlayerData.cards.IndexOf(card);
         PlayerData.cards.RemoveAt(index);
 

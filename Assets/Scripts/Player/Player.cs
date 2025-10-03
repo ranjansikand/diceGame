@@ -7,7 +7,7 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
     [SerializeField] List<Dice> startingDice;
-    [SerializeField] List<Card> startingCards;
+    [SerializeField] List<CardData> startingCards;
 
     private void Awake() {
         PlayerData.dice = startingDice;

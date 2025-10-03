@@ -2392,8 +2392,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1be1ef139abf7bf41beddde7bbcb4443, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  values: 020000000100000003000000050000000600000004000000
-  value: 0
+  diceData: {fileID: 11400000, guid: 09481cf9f361b5a479b565e0ad828d72, type: 2}
 --- !u!1 &1537081103
 GameObject:
   m_ObjectHideFlags: 0
@@ -2461,8 +2460,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1be1ef139abf7bf41beddde7bbcb4443, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  values: 020000000100000003000000050000000600000004000000
-  value: 0
+  diceData: {fileID: 11400000, guid: 09481cf9f361b5a479b565e0ad828d72, type: 2}
 --- !u!54 &1644837782
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -3146,7 +3144,7 @@ RectTransform:
   m_AnchorMin: {x: 1, y: 0.5}
   m_AnchorMax: {x: 1, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 100, y: 100}
+  m_SizeDelta: {x: 100, y: 200}
   m_Pivot: {x: 1, y: 0.5}
 --- !u!114 &2046241656
 MonoBehaviour:
@@ -3179,7 +3177,7 @@ MonoBehaviour:
     m_Top: 0
     m_Bottom: 0
   m_ChildAlignment: 4
-  m_Spacing: 0
+  m_Spacing: 4
   m_ChildForceExpandWidth: 0
   m_ChildForceExpandHeight: 0
   m_ChildControlWidth: 0

@@ -4,7 +4,7 @@
 using System.Collections;
 using UnityEngine;
 
-public class Single : Card
+public class Single : CardData
 {
     [SerializeField] protected Operator op;
     [SerializeField] protected int amount;

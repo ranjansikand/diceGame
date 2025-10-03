@@ -12,7 +12,7 @@ public static class PlayerData {
 
     // Variables
     public static List<Dice> dice;
-    public static List<Card> cards;
+    public static List<CardData> cards;
     public static bool performRoll = false;
     
 

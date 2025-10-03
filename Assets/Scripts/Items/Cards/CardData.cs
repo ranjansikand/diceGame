@@ -5,10 +5,10 @@
 using System.Collections;
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "Cards", order = 1)]
-public class Card : ScriptableObject
+
+[CreateAssetMenu(fileName = "New Card", menuName = "Items/Card", order = 1)]
+public class CardData : Item
 {
-    public string Name;
     [TextArea] public string Description;
 
     public virtual IEnumerator Check() {
