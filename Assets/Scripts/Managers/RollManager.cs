@@ -15,7 +15,6 @@ public class RollManager
     List<int> diceValues = new List<int>();
 
     public RollManager(GameManager gm, RoundManager rm) {
-        Debug.Log("Roll manager launched");
         this.gm = gm;
         this.rm = rm;
 
@@ -48,7 +47,7 @@ public class RollManager
         PlayerData.rolls -= 1;
 
         // Perform the roll
-        foreach (Dice dice in PlayerData.dice) {
+        foreach (Dice dice in Player.dice) {
             dice.RollDice();
         }
 
@@ -65,7 +64,7 @@ public class RollManager
 
     // Check if the dice are still moving
     bool DiceHaveSettled() {
-        foreach (Dice dice in PlayerData.dice) {
+        foreach (Dice dice in Player.dice) {
             if (!dice.hasSettled) return false;
         }
 

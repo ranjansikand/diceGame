@@ -17,6 +17,7 @@ public class RoundManager
         // Reset data
         GameManager.roundScore = GameManager.scoreThreshold;
         PlayerData.rolls = PlayerData.maxRolls;
+        gm.player.SpawnDice();
 
 
         gm.StartCoroutine(Round());
@@ -33,7 +34,7 @@ public class RoundManager
 
         // Payout
         if (GameManager.roundScore <= 0) {
-            Payroll.Payout();
+            Finance.PayPlayer();
             yield return new WaitForSeconds(1f);
         }
         

@@ -15,7 +15,7 @@ public class Dice : MonoBehaviour
     Vector3[] directions;
 
     // Map directions to die numbers (adjust this mapping for your model!)
-    [SerializeField] private DiceData diceData;
+    private DiceData diceData;
     // Order: [0]=forward, [1]=up, [2]=right, [3]=back, [4]=down, [5]=left
 
     public bool hasSettled { get { return rb.IsSleeping(); }}
@@ -34,6 +34,10 @@ public class Dice : MonoBehaviour
             transform.right,    // right
             -transform.right    // left
         };
+    }
+
+    public void Create(DiceData diceData) {
+        this.diceData = diceData;
     }
 
     public void RollDice() {

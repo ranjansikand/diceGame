@@ -11,7 +11,7 @@ public static class PlayerData {
     public static PlayerDataUpdate diceUpdated;
 
     // Variables
-    public static List<Dice> dice;
+    public static List<DiceData> dice;
     public static List<CardData> cards;
     public static bool performRoll = false;
     

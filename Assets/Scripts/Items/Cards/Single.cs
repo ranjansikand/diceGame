@@ -11,7 +11,7 @@ public class Single : CardData
     [SerializeField, Range(1, 6)] protected int condition = 1;
 
     public override IEnumerator Check() {
-        foreach (Dice die in PlayerData.dice) {
+        foreach (Dice die in Player.dice) {
             if (die.value == condition) {
                 AddOperator();
                 yield return Data.quarterSecond;

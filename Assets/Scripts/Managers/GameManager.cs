@@ -10,8 +10,7 @@ public class GameManager : MonoBehaviour
     public delegate void GameEvent();
     public static GameEvent scoreUpdated;
 
-    public static int scoreThreshold { get; private set; } = 20;
-    
+    public static int scoreThreshold { get; private set; } = 20;    
     private static int _roundScore { get; set; }
     public static int roundScore {
         get { return _roundScore; }
@@ -20,6 +19,8 @@ public class GameManager : MonoBehaviour
             if (scoreUpdated != null) scoreUpdated();
         }
     }
+
+    public Player player;
 
     private void Start() {
         StartCoroutine(Gameplay());

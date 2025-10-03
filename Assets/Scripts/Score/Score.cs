@@ -2,8 +2,6 @@
 
 
 using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 
 public static class Score
 {
@@ -15,7 +13,7 @@ public static class Score
     }
 
     private static IEnumerator Sum() {
-        foreach (Dice die in PlayerData.dice) {
+        foreach (Dice die in Player.dice) {
             PlayerData.score += die.CalculateValue();
             yield return Data.quarterSecond;
         }
