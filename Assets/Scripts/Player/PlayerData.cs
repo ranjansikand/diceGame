@@ -17,7 +17,7 @@ public static class PlayerData {
     
 
     #region Finances
-    private static int _money = 0;
+    private static int _money = 10;
     public static int money {
         get { return _money; }
         set {

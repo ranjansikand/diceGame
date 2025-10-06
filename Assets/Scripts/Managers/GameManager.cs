@@ -22,14 +22,25 @@ public class GameManager : MonoBehaviour
 
     public Player player;
 
+    [SerializeField] GameObject shopCanvas, gameplayCanvas;
+
     private void Start() {
         StartCoroutine(Gameplay());
     }
 
     IEnumerator Gameplay() {
         while (!PlayerLost()) {
+            // Open shop
+            gameplayCanvas.SetActive(false);
+            shopCanvas.SetActive(true);
+            yield return new WaitUntil(() => !shopCanvas.activeSelf);
+
+            // Start round
+            gameplayCanvas.SetActive(true);
             RoundManager round = new RoundManager(this);
             yield return new WaitUntil(() => round.complete);
+
+            scoreThreshold = Mathf.RoundToInt(scoreThreshold * 1.25f);
         }
 
         Debug.Log("Player lost. Lost on rolls? " 

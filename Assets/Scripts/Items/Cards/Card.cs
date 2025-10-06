@@ -1,4 +1,4 @@
-// 
+// Visual representative of Card in UI
 
 
 using System.Collections;
@@ -15,6 +15,6 @@ public class Card : MonoBehaviour
     }
 
     public IEnumerator Check() {
-        yield return card.Check();
+        yield return card.Check(this);
     }
 }

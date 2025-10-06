@@ -12,10 +12,7 @@ public class MoneyCounter : MonoBehaviour
 
     private void OnEnable() {
         PlayerData.moneyUpdated += MoneyUpdated;
-    }
-
-    private void Start() {
-        MoneyUpdated();
+        UpdateMoney();
     }
 
     private void OnDisable() {

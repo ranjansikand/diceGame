@@ -3,6 +3,7 @@
 
 using System.Collections;
 using UnityEngine;
+using DG.Tweening;
 
 public class Single : CardData
 {
@@ -10,13 +11,16 @@ public class Single : CardData
     [SerializeField] protected int amount;
     [SerializeField, Range(1, 6)] protected int condition = 1;
 
-    public override IEnumerator Check() {
+    public override IEnumerator Check(Card card) {
+        card.transform.DOScale(Vector3.one * 1.05f, 0.05f);
         foreach (Dice die in Player.dice) {
             if (die.value == condition) {
+                card.transform.DOScale(Vector3.one * 1.25f, 0.25f);
                 AddOperator();
                 yield return Data.quarterSecond;
             }
         }
+        card.transform.DOScale(Vector3.one, 0.1f);
     }
 
     protected void AddOperator() {

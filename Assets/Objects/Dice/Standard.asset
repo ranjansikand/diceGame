@@ -12,4 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8bb17d9c8aacda44586028ff0e183396, type: 3}
   m_Name: Standard
   m_EditorClassIdentifier: 
+  Name: Standard Die
   values: 020000000100000003000000050000000600000004000000

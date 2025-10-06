@@ -1,13 +1,24 @@
 // Adds and removes things from the player's inventory
 
 
+using UnityEngine;
+
 public static class Inventory
 {
     public delegate void InventoryUpdate(int i);
     public static InventoryUpdate cardsUpdated, diceUpdated;
 
+    public static void AddItem(Item item) {
+        if (item.type == Type.Card) {
+            AddCard((CardData)item);
+        } else if (item.type == Type.Dice) {
+            AddDice((DiceData)item);
+        }
+    }
+
     public static void AddCard(CardData card) {
         PlayerData.cards.Add(card);
+        Debug.Log("Adding card!");
 
         if (cardsUpdated != null) cardsUpdated(PlayerData.cards.Count - 1);
     }

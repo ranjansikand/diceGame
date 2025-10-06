@@ -1,24 +1,38 @@
 // Shop that populates
 
 
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class Shop : MonoBehaviour
 {
     [SerializeField] List<ShopItems> shopItems;
+    [SerializeField] Merchandise merchandisePrefab;
+    [SerializeField] GameObject shopCanvas;
 
+    List<Merchandise> merch = new List<Merchandise>();
 
     private void OnEnable() {
-        
+        PopulateShop();
+    }
+
+    private void OnDisable() {
+        for (int i = 0; i < merch.Count; i++) {
+            Destroy(merch[i].gameObject);
+        }
+
+        merch.Clear();
     }
 
     private void PopulateShop() {
-        for (int i = 0; i < 4; i++) {  // Add 4 items to shop
+        for (int i = 0; i < 6; i++) {  // Add 4 items to shop
             int index = PickIndex(shopItems.Count);
             Item item = shopItems[index].items[Random.Range(0, shopItems[index].items.Count)];
             int price = Finance.PriceItem(item, index);
+
+            Merchandise newMerch = Instantiate(merchandisePrefab, transform);
+            newMerch.MarkForSale(item, price);
+            merch.Add(newMerch);
         }
     }
 
@@ -45,5 +59,9 @@ public class Shop : MonoBehaviour
         }
 
         return count - 1; // fallback (should never hit)
+    }
+
+    public void CloseShop() {  // Button
+        shopCanvas.SetActive(false);
     }
 }
