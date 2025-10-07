@@ -3,6 +3,7 @@
 
 using System.Collections;
 using UnityEngine;
+using DG.Tweening;
 
 public class Card : MonoBehaviour
 {
@@ -15,6 +16,8 @@ public class Card : MonoBehaviour
     }
 
     public IEnumerator Check() {
-        yield return card.Check(this);
+        transform.DOScale(Vector3.one * 1.05f, 0.05f);
+        yield return card.Check(this);  
+        transform.DOScale(Vector3.one, 0.1f);
     }
 }

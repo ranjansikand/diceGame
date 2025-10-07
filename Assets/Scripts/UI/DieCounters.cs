@@ -15,11 +15,13 @@ public class DieCounters : MonoBehaviour
     private void OnEnable() {
         Dice.rolled += Rolled;
         Dice.valueCalculated += AddValueTracker;
+        Dice.bonus += Bonus;
     }
 
     private void OnDisable() {
         Dice.rolled -= Rolled;
         Dice.valueCalculated -= AddValueTracker;
+        Dice.bonus -= Bonus;
     }
 
     private void Rolled(Dice dice) {
@@ -34,6 +36,14 @@ public class DieCounters : MonoBehaviour
         TMP_Text tracker = GetTracker();
         tracker.transform.position = Camera.main.WorldToScreenPoint(dice.transform.position);
         tracker.text = dice.value.ToString();
+
+        StartCoroutine(DeactivateTracker(tracker));
+    }
+
+    private void Bonus(Dice die, string message) {
+        TMP_Text tracker = GetTracker();
+        tracker.transform.position = Camera.main.WorldToScreenPoint(die.transform.position + Vector3.up);
+        tracker.text = message;
 
         StartCoroutine(DeactivateTracker(tracker));
     }

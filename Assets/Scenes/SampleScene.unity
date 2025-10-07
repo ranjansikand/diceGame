@@ -2942,8 +2942,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dicePrefab: {fileID: 5941294155180232131, guid: a69528c8ba874084397a1e0e17da4a7e, type: 3}
   startingDice:
-  - {fileID: 11400000, guid: 09481cf9f361b5a479b565e0ad828d72, type: 2}
-  - {fileID: 11400000, guid: 09481cf9f361b5a479b565e0ad828d72, type: 2}
+  - {fileID: 11400000, guid: 389579502dc64624e9c8ca70c621c91b, type: 2}
+  - {fileID: 11400000, guid: 389579502dc64624e9c8ca70c621c91b, type: 2}
+  - {fileID: 11400000, guid: 389579502dc64624e9c8ca70c621c91b, type: 2}
+  - {fileID: 11400000, guid: 389579502dc64624e9c8ca70c621c91b, type: 2}
   startingCards:
   - {fileID: 11400000, guid: 39ad2d66f4e1f004b9d7e372d6433999, type: 2}
   - {fileID: 11400000, guid: 917aacb267b178a4fb1b277092512274, type: 2}

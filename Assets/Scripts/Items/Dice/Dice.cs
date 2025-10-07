@@ -3,11 +3,15 @@
 
 using System.Collections;
 using UnityEngine;
+using DG.Tweening;
 
 public class Dice : MonoBehaviour
 {
     public delegate void DiceEvent(Dice dice);
     public static DiceEvent valueCalculated, rolled;
+    
+    public delegate void ScoreEvent(Dice die, string message);
+    public static ScoreEvent bonus, multiplier;
 
     private Rigidbody rb;
 
@@ -15,7 +19,7 @@ public class Dice : MonoBehaviour
     Vector3[] directions;
 
     // Map directions to die numbers (adjust this mapping for your model!)
-    private DiceData diceData;
+    public DiceData diceData { get; private set; }
     // Order: [0]=forward, [1]=up, [2]=right, [3]=back, [4]=down, [5]=left
 
     public bool hasSettled { get { return rb.IsSleeping(); }}
@@ -82,5 +86,11 @@ public class Dice : MonoBehaviour
 
         if (valueCalculated != null) valueCalculated(this);
         return value;
+    }
+
+    public IEnumerator Score() {
+        transform.DOScale(Vector3.one * 1.25f, 0.125f);
+        yield return diceData.Score(this);
+        transform.DOScale(Vector3.one, 0.05f);
     }
 }
