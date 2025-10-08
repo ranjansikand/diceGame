@@ -5,6 +5,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using DG.Tweening;
 
 public class RollManager
 {
@@ -57,6 +58,7 @@ public class RollManager
 
     // Display the final score
     IEnumerator ScoreTheDice() {
+        Player.OrganizeDice();
         yield return new WaitForSeconds(0.5f);
 
         yield return Score.Calculate();
@@ -70,4 +72,7 @@ public class RollManager
 
         return true;
     }
+
+    // Put the dice in a neat line
+    
 }

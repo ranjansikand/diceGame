@@ -3,6 +3,7 @@
 
 using System.Collections.Generic;
 using UnityEngine;
+using DG.Tweening;
 
 public class Player : MonoBehaviour
 {
@@ -35,7 +36,24 @@ public class Player : MonoBehaviour
                 newDie.Create(PlayerData.dice[i]);
                 dice.Add(newDie);
             }
-           
+        }
+
+        OrganizeDice();
+    }
+
+    public static void OrganizeDice() {
+        if (Player.dice == null || Player.dice.Count == 0)
+            return;
+
+        float spacing = 1.5f;
+        int count = Player.dice.Count;
+        float totalWidth = (count - 1) * spacing;
+        float startX = -totalWidth / 2f; // Start so that they center around 0
+
+        for (int i = 0; i < count; i++){
+            Vector3 targetPos = new Vector3(startX + (i * spacing), 0f, 0f);
+            Player.dice[i].transform.DOMove(targetPos, 0.375f);
+            Player.dice[i].transform.DORotate(Vector3.zero, 0.375f);
         }
     }
 }

@@ -13,7 +13,7 @@ public class Dice : MonoBehaviour
     public delegate void ScoreEvent(Dice die, string message);
     public static ScoreEvent bonus, multiplier;
 
-    private Rigidbody rb;
+    private Rigidbody2D rb;
 
     // Check the die's local axes
     Vector3[] directions;
@@ -26,7 +26,7 @@ public class Dice : MonoBehaviour
     public int value { get; set; }
 
     void Awake() {
-        rb = GetComponent<Rigidbody>();
+        rb = GetComponent<Rigidbody2D>();
     }
 
     private void OnEnable() {
@@ -46,42 +46,24 @@ public class Dice : MonoBehaviour
 
     public void RollDice() {
         // Optional: clear out current momentum so the new roll is consistent
-        rb.velocity = Vector3.zero;
-        rb.angularVelocity = Vector3.zero;
+        rb.velocity = Vector2.zero;
+        rb.angularVelocity = 0;
 
         // Add random upward + sideways force
-        rb.AddForce(new Vector3(
-            Random.Range(-2f, 2f),
-            Random.Range(5f, 10f),
-            Random.Range(-2f, 2f)
-        ), ForceMode.Impulse);
+        float forceRange = 8f;
+        rb.AddForce(new Vector2(
+            Random.Range(-forceRange, forceRange),
+            Random.Range(-forceRange, forceRange)
+        ), ForceMode2D.Impulse);
 
         // Add random spin
-        rb.AddTorque(
-            Random.Range(-10f, 10f),
-            Random.Range(-10f, 10f),
-            Random.Range(-10f, 10f),
-            ForceMode.Impulse
-        );
+        rb.AddTorque(Random.Range(-10f, 10f));
 
         if (rolled != null) rolled(this);
     }
 
     public int CalculateValue() {
-        Vector3[] vectors = { transform.forward, transform.up, transform.right };
-        float max = -1f;
-        int sideIndex = 0;
-
-        for (int i = 0; i < vectors.Length; i++) {
-            float dot = Vector3.Dot(vectors[i], Vector3.up);
-
-            if (Mathf.Abs(dot) >= max) {
-                max = Mathf.Abs(dot);
-                // if dot is negative, it’s the opposite side → i+3
-                sideIndex = dot < 0 ? i + 3 : i;
-            }
-        }
-
+        int sideIndex = Random.Range(0, diceData.values.Length);
         value = diceData.values[sideIndex];
 
         if (valueCalculated != null) valueCalculated(this);
