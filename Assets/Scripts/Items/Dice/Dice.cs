@@ -3,9 +3,11 @@
 
 using System.Collections;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using DG.Tweening;
 
-public class Dice : MonoBehaviour
+public class Dice : MonoBehaviour,
+    IBeginDragHandler, IDragHandler, IEndDragHandler
 {
     public delegate void DiceEvent(Dice dice);
     public static DiceEvent valueCalculated, rolled;
@@ -14,36 +16,27 @@ public class Dice : MonoBehaviour
     public static ScoreEvent bonus, multiplier;
 
     private Rigidbody2D rb;
+    private BoxCollider2D bc;
 
-    // Check the die's local axes
-    Vector3[] directions;
-
-    // Map directions to die numbers (adjust this mapping for your model!)
     public DiceData diceData { get; private set; }
-    // Order: [0]=forward, [1]=up, [2]=right, [3]=back, [4]=down, [5]=left
 
     public bool hasSettled { get { return rb.IsSleeping(); }}
     public int value { get; set; }
+    private Vector2 originalPosition;
+
+    // Random information
+    public int timesRolled { get; private set; } = 0;
 
     void Awake() {
         rb = GetComponent<Rigidbody2D>();
-    }
-
-    private void OnEnable() {
-        directions = new Vector3[] {
-            transform.up,     // top
-            -transform.up,    // bottom
-            transform.forward,  // front
-            -transform.forward, // back
-            transform.right,    // right
-            -transform.right    // left
-        };
+        bc = GetComponent<BoxCollider2D>();
     }
 
     public void Create(DiceData diceData) {
         this.diceData = diceData;
     }
 
+    #region Rolling
     public void RollDice() {
         // Optional: clear out current momentum so the new roll is consistent
         rb.velocity = Vector2.zero;
@@ -59,6 +52,7 @@ public class Dice : MonoBehaviour
         // Add random spin
         rb.AddTorque(Random.Range(-10f, 10f));
 
+        timesRolled++;
         if (rolled != null) rolled(this);
     }
 
@@ -75,4 +69,59 @@ public class Dice : MonoBehaviour
         yield return diceData.Score(this);
         transform.DOScale(Vector3.one, 0.05f);
     }
+    #endregion
+
+    #region Manipulation
+    bool InMovementRange() {
+        if (Mathf.Abs(transform.position.x - originalPosition.x) > 1.5f &&
+            Mathf.Abs(transform.position.y) < 1.5f)
+        {
+            return true;
+        }
+
+        return false;
+    }
+
+
+    public void OnBeginDrag(PointerEventData data) {
+        originalPosition = transform.position;
+        bc.enabled = false;
+    }
+
+    public void OnDrag(PointerEventData data) {
+        Vector2 pos = Camera.main.ScreenToWorldPoint(data.position);
+        transform.position = new Vector3(pos.x, pos.y, transform.position.z);
+
+        if (InMovementRange()) {
+            int currentIndex = Player.dice.IndexOf(this);
+            int targetIndex = currentIndex;
+
+            if (transform.position.x > originalPosition.x) {
+                // Swap right
+                targetIndex = Mathf.Min(currentIndex + 1, Player.dice.Count - 1);
+            } else {
+                // Swap left
+                targetIndex = Mathf.Max(currentIndex - 1, 0);
+            }
+
+            if (targetIndex != currentIndex) {
+                // Swap positions in the list
+                Dice temp = Player.dice[targetIndex];
+                Player.dice[targetIndex] = this;
+                Player.dice[currentIndex] = temp;
+
+                // Update the original position reference
+                originalPosition = temp.transform.position;
+
+                // Reorganize all dice except the one being dragged
+                Player.OrganizeDice(this);
+            }
+        }
+    }
+
+    public void OnEndDrag(PointerEventData data) {
+        Player.OrganizeDice();
+        bc.enabled = true;
+    }
+    #endregion
 }

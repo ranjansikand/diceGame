@@ -3,6 +3,7 @@
 
 using System.Collections;
 using UnityEngine;
+using TMPro;
 using DG.Tweening;
 
 public class Card : MonoBehaviour
@@ -10,9 +11,13 @@ public class Card : MonoBehaviour
     CardDisplay cardDisplay;
     CardData card;
 
+    [SerializeField] TMP_Text cardName;
+
     public void Create(CardData card, CardDisplay cardDisplay) {
         this.card = card;
         this.cardDisplay = cardDisplay;
+
+        cardName.text = card.Name;
     }
 
     public IEnumerator Check() {

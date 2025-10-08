@@ -12,7 +12,7 @@ public class Finance {
 
         price += price * rarity;  // Adjust for rarity
 
-        if (item.GetType() == typeof(Dice))
+        if (item.type == Type.Dice)
             price += 2;  // Premium for a dice
         
         return price;

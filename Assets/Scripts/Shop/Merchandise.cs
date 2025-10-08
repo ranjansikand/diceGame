@@ -1,9 +1,8 @@
 // An entry at the shop
 
 
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using TMPro;
 
 public class Merchandise : MonoBehaviour
@@ -12,13 +11,16 @@ public class Merchandise : MonoBehaviour
     int price;
 
     [SerializeField] TMP_Text priceTag, label;
+    [SerializeField] Image border;
+    [SerializeField] Color[] rarityColors;
 
-    public void MarkForSale(Item item, int price) {
+    public void MarkForSale(Item item, int price, int rarity) {
         this.item = item;
         this.price = price;
 
         priceTag.text = price.ToString();
         label.text = item.Name;
+        border.color = rarityColors[rarity];
     }
 
     public void Purchase() {

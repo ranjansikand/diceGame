@@ -31,7 +31,7 @@ public class Shop : MonoBehaviour
             int price = Finance.PriceItem(item, index);
 
             Merchandise newMerch = Instantiate(merchandisePrefab, transform);
-            newMerch.MarkForSale(item, price);
+            newMerch.MarkForSale(item, price, index);
             merch.Add(newMerch);
         }
     }

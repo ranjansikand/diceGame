@@ -41,19 +41,25 @@ public class Player : MonoBehaviour
         OrganizeDice();
     }
 
-    public static void OrganizeDice() {
+    public static void OrganizeDice(Dice skipDice = null) {
         if (Player.dice == null || Player.dice.Count == 0)
             return;
 
         float spacing = 1.5f;
         int count = Player.dice.Count;
         float totalWidth = (count - 1) * spacing;
-        float startX = -totalWidth / 2f; // Start so that they center around 0
+        float startX = -totalWidth / 2f;
 
-        for (int i = 0; i < count; i++){
+        for (int i = 0; i < count; i++) {
+            if (Player.dice[i] == skipDice) continue; // Skip the dragged die
+
             Vector3 targetPos = new Vector3(startX + (i * spacing), 0f, 0f);
-            Player.dice[i].transform.DOMove(targetPos, 0.375f);
-            Player.dice[i].transform.DORotate(Vector3.zero, 0.375f);
+            Player.dice[i].transform
+                .DOMove(targetPos, 0.375f)
+                .SetEase(Ease.OutQuad);
+            Player.dice[i].transform
+                .DORotate(Vector3.zero, 0.375f)
+                .SetEase(Ease.OutQuad);
         }
     }
 }
