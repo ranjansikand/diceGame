@@ -5,7 +5,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using DG.Tweening;
 
 public class RollManager
 {
@@ -72,7 +71,4 @@ public class RollManager
 
         return true;
     }
-
-    // Put the dice in a neat line
-    
 }

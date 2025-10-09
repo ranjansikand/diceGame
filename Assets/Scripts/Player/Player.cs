@@ -54,6 +54,9 @@ public class Player : MonoBehaviour
             if (Player.dice[i] == skipDice) continue; // Skip the dragged die
 
             Vector3 targetPos = new Vector3(startX + (i * spacing), 0f, 0f);
+            
+            // Don't move if you don't have to
+            if (Player.dice[i].transform.position == targetPos) continue; 
             Player.dice[i].transform
                 .DOMove(targetPos, 0.375f)
                 .SetEase(Ease.OutQuad);

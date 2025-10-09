@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b99d30c0ffd3d884fb852baaf9f43af9, type: 3}
+  m_Name: Pips
+  m_EditorClassIdentifier: 
+  sprites:
+  - {fileID: 0}
+  - {fileID: 21300000, guid: 3ea046afa5e8fdc4ea47d8b0bb1e6dd1, type: 3}
+  - {fileID: 21300000, guid: 7982aeb6d19834a4499cb3a0be6c26bf, type: 3}
+  - {fileID: 21300000, guid: 383f293b0cc5cd444980a80d7d5218b0, type: 3}
+  - {fileID: 21300000, guid: 433c2f3051e52364e98bf1f74b2ba6b9, type: 3}
+  - {fileID: 21300000, guid: 65ad1f03534e7df4bab15dfa40e8fbe4, type: 3}
+  - {fileID: 21300000, guid: bea92cbf14fdd1445b0dbc3e43039d82, type: 3}
+  - {fileID: 21300000, guid: d345b617cc89cbc4e890a76c7d3085c1, type: 3}
+  - {fileID: 21300000, guid: 15bb49aa9d002e446a02ebeebffbdf57, type: 3}
+  - {fileID: 21300000, guid: 58d945e7daadd8e42ac2494be026ed17, type: 3}

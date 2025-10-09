@@ -5,25 +5,19 @@
 using System.Collections;
 using UnityEngine;
 
-public class RoundManager
+public class RoundManager : Manager
 {
-    GameManager gm;
-
-    public bool complete = false;
-
-    public RoundManager(GameManager gm) {
-        this.gm = gm;
-        
+    public RoundManager(GameManager gm): base(gm) {
         // Reset data
         GameManager.roundScore = GameManager.scoreThreshold;
         PlayerData.rolls = PlayerData.maxRolls;
         gm.player.SpawnDice();
 
 
-        gm.StartCoroutine(Round());
+        gm.StartCoroutine(Routine());
     }
 
-    IEnumerator Round() {
+    protected override IEnumerator Routine() {
         while (!RoundComplete()) {
             RollManager roll = new RollManager(gm, this);
             yield return new WaitUntil(() => roll.complete);

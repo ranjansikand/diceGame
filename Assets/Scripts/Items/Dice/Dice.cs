@@ -4,10 +4,11 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.Rendering;
 using DG.Tweening;
 
 public class Dice : MonoBehaviour,
-    IBeginDragHandler, IDragHandler, IEndDragHandler
+    IBeginDragHandler, IDragHandler, IEndDragHandler, IPointerEnterHandler, IPointerExitHandler
 {
     public delegate void DiceEvent(Dice dice);
     public static DiceEvent valueCalculated, rolled;
@@ -17,12 +18,18 @@ public class Dice : MonoBehaviour,
 
     private Rigidbody2D rb;
     private BoxCollider2D bc;
+    [SerializeField] SpriteRenderer pip;
+    private Transform die;
+    private SortingGroup sg;
 
     public DiceData diceData { get; private set; }
+    [SerializeField] DiePips diePips;
 
     public bool hasSettled { get { return rb.IsSleeping(); }}
     public int value { get; set; }
     private Vector2 originalPosition;
+    Vector3 lastPos;
+    Vector3 dragVelocity;
 
     // Random information
     public int timesRolled { get; private set; } = 0;
@@ -30,10 +37,16 @@ public class Dice : MonoBehaviour,
     void Awake() {
         rb = GetComponent<Rigidbody2D>();
         bc = GetComponent<BoxCollider2D>();
+        die = transform.GetChild(0);
+        sg = GetComponent<SortingGroup>();
     }
 
     public void Create(DiceData diceData) {
         this.diceData = diceData;
+
+        pip.sprite = diePips.sprites[
+            diceData.values[Random.Range(0, diceData.values.Length)]
+        ];
     }
 
     #region Rolling
@@ -59,6 +72,7 @@ public class Dice : MonoBehaviour,
     public int CalculateValue() {
         int sideIndex = Random.Range(0, diceData.values.Length);
         value = diceData.values[sideIndex];
+        pip.sprite = diePips.sprites[value];
 
         if (valueCalculated != null) valueCalculated(this);
         return value;
@@ -82,15 +96,39 @@ public class Dice : MonoBehaviour,
         return false;
     }
 
+    public void OnPointerEnter(PointerEventData data) {
+        transform.DOScale(Vector3.one * 1.1f, 0.125f);
+    }
+
+    public void OnPointerExit(PointerEventData data) {
+        transform.DOScale(Vector3.one, 0.125f);
+    }
 
     public void OnBeginDrag(PointerEventData data) {
         originalPosition = transform.position;
+        lastPos = transform.position;
         bc.enabled = false;
+        sg.sortingOrder = 1;
     }
 
     public void OnDrag(PointerEventData data) {
         Vector2 pos = Camera.main.ScreenToWorldPoint(data.position);
         transform.position = new Vector3(pos.x, pos.y, transform.position.z);
+
+        // --- Add subtle visual movement ---
+        dragVelocity = (transform.position - lastPos) / Time.deltaTime;
+        lastPos = transform.position;
+
+        // Move the visual slightly in drag direction
+        Vector3 offset = dragVelocity.normalized * 0.25f;
+        offset.z = 0;
+
+        // Smoothly lerp localPosition to offset
+        die.transform.localPosition = Vector3.Lerp(
+            die.transform.localPosition,
+            offset,
+            Time.deltaTime * 8f // smoothing speed
+        );
 
         if (InMovementRange()) {
             int currentIndex = Player.dice.IndexOf(this);
@@ -122,6 +160,10 @@ public class Dice : MonoBehaviour,
     public void OnEndDrag(PointerEventData data) {
         Player.OrganizeDice();
         bc.enabled = true;
+        sg.sortingOrder = 0;
+
+        die.transform.DOLocalMove(Vector3.zero, 0.1f);
+        
     }
     #endregion
 }

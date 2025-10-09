@@ -22,23 +22,23 @@ public class GameManager : MonoBehaviour
 
     public Player player;
 
-    [SerializeField] GameObject shopCanvas, gameplayCanvas;
+    public GameObject shopCanvas, gameplayCanvas;
 
     private void Start() {
         StartCoroutine(Gameplay());
     }
 
     IEnumerator Gameplay() {
+        Manager activeManager;
+
         while (!PlayerLost()) {
             // Open shop
-            gameplayCanvas.SetActive(false);
-            shopCanvas.SetActive(true);
-            yield return new WaitUntil(() => !shopCanvas.activeSelf);
+            activeManager = new ShopManager(this);
+            yield return new WaitUntil(() => activeManager.complete);
 
             // Start round
-            gameplayCanvas.SetActive(true);
-            RoundManager round = new RoundManager(this);
-            yield return new WaitUntil(() => round.complete);
+            activeManager = new RoundManager(this);
+            yield return new WaitUntil(() => activeManager.complete);
 
             scoreThreshold = Mathf.RoundToInt(scoreThreshold * 1.25f);
         }
