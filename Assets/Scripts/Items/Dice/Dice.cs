@@ -19,6 +19,7 @@ public class Dice : MonoBehaviour,
     private Rigidbody2D rb;
     private BoxCollider2D bc;
     [SerializeField] SpriteRenderer pip;
+    [SerializeField] SpriteRenderer sr;
     private Transform die;
     private SortingGroup sg;
 
@@ -47,6 +48,8 @@ public class Dice : MonoBehaviour,
         pip.sprite = diePips.sprites[
             diceData.values[Random.Range(0, diceData.values.Length)]
         ];
+
+        sr.color = diceData.color;
     }
 
     #region Rolling
@@ -67,21 +70,34 @@ public class Dice : MonoBehaviour,
 
         timesRolled++;
         if (rolled != null) rolled(this);
+        StartCoroutine(ShuffleNumbers());
     }
 
     public int CalculateValue() {
+        StopAllCoroutines();
+
         int sideIndex = Random.Range(0, diceData.values.Length);
         value = diceData.values[sideIndex];
         pip.sprite = diePips.sprites[value];
 
-        if (valueCalculated != null) valueCalculated(this);
         return value;
     }
 
     public IEnumerator Score() {
         transform.DOScale(Vector3.one * 1.25f, 0.125f);
+        if (valueCalculated != null) valueCalculated(this);
+
         yield return diceData.Score(this);
         transform.DOScale(Vector3.one, 0.05f);
+    }
+
+    IEnumerator ShuffleNumbers() {
+        while (!rb.IsSleeping()) {
+            pip.sprite = diePips.sprites[
+                diceData.values[Random.Range(0, diceData.values.Length)]
+            ];
+            yield return Data.quarterSecond;
+        }
     }
     #endregion
 
@@ -97,11 +113,15 @@ public class Dice : MonoBehaviour,
     }
 
     public void OnPointerEnter(PointerEventData data) {
+        if (PlayerData.dragging) return;
+        
         transform.DOScale(Vector3.one * 1.1f, 0.125f);
+        Tooltip.instance.Show(diceData.Name, diceData.Description, data.position);
     }
 
     public void OnPointerExit(PointerEventData data) {
         transform.DOScale(Vector3.one, 0.125f);
+        Tooltip.instance.Hide();
     }
 
     public void OnBeginDrag(PointerEventData data) {
@@ -109,6 +129,7 @@ public class Dice : MonoBehaviour,
         lastPos = transform.position;
         bc.enabled = false;
         sg.sortingOrder = 1;
+        PlayerData.dragging = true;
     }
 
     public void OnDrag(PointerEventData data) {
@@ -161,6 +182,7 @@ public class Dice : MonoBehaviour,
         Player.OrganizeDice();
         bc.enabled = true;
         sg.sortingOrder = 0;
+        PlayerData.dragging = false;
 
         die.transform.DOLocalMove(Vector3.zero, 0.1f);
         

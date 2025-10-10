@@ -260,6 +260,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pip: {fileID: 8300913412491189104}
+  sr: {fileID: 3220170739976751596}
   diePips: {fileID: 11400000, guid: f56010c2e49d0d846bff7f40839633cc, type: 2}
 --- !u!210 &-724402686167220373
 SortingGroup:

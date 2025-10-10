@@ -57,8 +57,11 @@ public class RollManager
 
     // Display the final score
     IEnumerator ScoreTheDice() {
+        foreach (Dice die in Player.dice) die.CalculateValue();
+        yield return Data.halfSecond;
+
         Player.OrganizeDice();
-        yield return new WaitForSeconds(0.5f);
+        yield return Data.quarterSecond;
 
         yield return Score.Calculate();
     }

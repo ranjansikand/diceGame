@@ -3,9 +3,11 @@
 
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.EventSystems;
+using DG.Tweening;
 using TMPro;
 
-public class Merchandise : MonoBehaviour
+public class Merchandise : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
     Item item;
     int price;
@@ -38,5 +40,19 @@ public class Merchandise : MonoBehaviour
         priceTag.text = label.text = "";
         item = null;
         price = 100000;
+
+        OnPointerExit(null);
+    }
+
+    public void OnPointerEnter(PointerEventData data) {
+        if (PlayerData.dragging || item == null) return;
+
+        transform.DOScale(Vector3.one * 1.1f, 0.125f);
+        Tooltip.instance.Show(item.Name, item.Description, data.position);
+    }
+
+    public void OnPointerExit(PointerEventData data) {
+        transform.DOScale(Vector3.one, 0.125f);
+        Tooltip.instance.Hide();
     }
 }

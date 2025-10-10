@@ -14,6 +14,7 @@ public static class PlayerData {
     public static List<DiceData> dice;
     public static List<CardData> cards;
     public static bool performRoll = false;
+    public static bool dragging = false;
     
 
     #region Finances

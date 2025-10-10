@@ -10,7 +10,6 @@ using UnityEngine;
 public class CardData : Item
 {
     public override Type type { get { return Type.Card; }}
-    [TextArea] public string Description;
 
     public virtual IEnumerator Check(Card card) {
         yield return null;

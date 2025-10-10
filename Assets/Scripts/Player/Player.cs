@@ -18,11 +18,19 @@ public class Player : MonoBehaviour
         PlayerData.cards = startingCards;
     }
 
+    private void OnEnable() {
+        Inventory.diceUpdated += SpawnDice;
+    }
+
+    private void OnDisable() {
+        Inventory.diceUpdated -= SpawnDice;
+    }
+
     public void Roll() {
         PlayerData.performRoll = true;
     }
 
-    public void SpawnDice() {
+    public void SpawnDice(int x = 0) {
         if (dice.Count == 0 && PlayerData.cards.Count > 0) {
             // Draw all the cards
             foreach (DiceData die in PlayerData.dice) {

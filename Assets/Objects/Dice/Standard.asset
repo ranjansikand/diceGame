@@ -13,4 +13,6 @@ MonoBehaviour:
   m_Name: Standard
   m_EditorClassIdentifier: 
   Name: Standard Die
+  Description: A Standard D6
+  color: {r: 1, g: 1, b: 1, a: 1}
   values: 010000000200000003000000040000000500000006000000

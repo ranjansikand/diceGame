@@ -13,6 +13,9 @@ public class RoundManager : Manager
         PlayerData.rolls = PlayerData.maxRolls;
         gm.player.SpawnDice();
 
+        gm.gameplayCanvas.SetActive(true);
+        gm.vcamGame.SetActive(true);
+
 
         gm.StartCoroutine(Routine());
     }

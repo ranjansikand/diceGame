@@ -23,6 +23,7 @@ public class GameManager : MonoBehaviour
     public Player player;
 
     public GameObject shopCanvas, gameplayCanvas;
+    public GameObject vcamGame, vcamShop;
 
     private void Start() {
         StartCoroutine(Gameplay());

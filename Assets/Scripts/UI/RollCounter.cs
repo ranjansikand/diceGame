@@ -11,9 +11,7 @@ public class RollCounter : MonoBehaviour
     private void OnEnable() {
         PlayerData.rollsUpdated += UpdateCounter;
         PlayerData.maxRollsUpdated += UpdateCounter;
-    }
 
-    private void Start() {
         UpdateCounter();
     }
 

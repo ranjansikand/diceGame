@@ -13,4 +13,6 @@ MonoBehaviour:
   m_Name: FalseStart
   m_EditorClassIdentifier: 
   Name: False Start
+  Description: Rescore the previous die
+  color: {r: 0.8490566, g: 0.78565145, b: 0.42986822, a: 1}
   values: 020000000100000003000000050000000600000004000000

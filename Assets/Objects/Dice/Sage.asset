@@ -13,4 +13,6 @@ MonoBehaviour:
   m_Name: Sage
   m_EditorClassIdentifier: 
   Name: Sage
+  Description: +1 bonus per roll
+  color: {r: 0.5176471, g: 0.54509807, b: 0.4745098, a: 1}
   values: 010000000200000003000000040000000500000006000000

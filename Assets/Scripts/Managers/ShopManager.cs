@@ -7,8 +7,13 @@ using UnityEngine;
 public class ShopManager : Manager
 {
     public ShopManager(GameManager gm): base(gm) {
-        // Reset data
+        gm.player.SpawnDice();
+        
+        // Stop game mode
         gm.gameplayCanvas.SetActive(false);
+        gm.vcamGame.SetActive(false);
+
+        gm.vcamShop.SetActive(true);
         gm.shopCanvas.SetActive(true);
 
         gm.StartCoroutine(Routine());
@@ -16,7 +21,6 @@ public class ShopManager : Manager
 
     protected override IEnumerator Routine() {
         yield return new WaitUntil(() => !gm.shopCanvas.activeSelf);
-        gm.gameplayCanvas.SetActive(true);
         complete = true;
     }
 }

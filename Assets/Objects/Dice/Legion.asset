@@ -13,4 +13,6 @@ MonoBehaviour:
   m_Name: Legion
   m_EditorClassIdentifier: 
   Name: Legionnaire
+  Description: +1 per Legionnaire dice held
+  color: {r: 0.735849, g: 0.28924876, b: 0.28924876, a: 1}
   values: 010000000200000003000000040000000500000006000000
