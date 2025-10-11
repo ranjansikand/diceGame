@@ -47,6 +47,7 @@ public class Merchandise : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
     public void OnPointerEnter(PointerEventData data) {
         if (PlayerData.dragging || item == null) return;
 
+        SFX.playHover();
         transform.DOScale(Vector3.one * 1.1f, 0.125f);
         Tooltip.instance.Show(item.Name, item.Description, data.position);
     }

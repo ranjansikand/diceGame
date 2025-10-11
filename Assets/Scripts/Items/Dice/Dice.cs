@@ -115,6 +115,7 @@ public class Dice : MonoBehaviour,
     public void OnPointerEnter(PointerEventData data) {
         if (PlayerData.dragging) return;
         
+        SFX.playHover();
         transform.DOScale(Vector3.one * 1.1f, 0.125f);
         Tooltip.instance.Show(diceData.Name, diceData.Description, data.position);
     }

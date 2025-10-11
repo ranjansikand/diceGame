@@ -1,5 +1,6 @@
-using System.Collections;
-using System.Collections.Generic;
+// Carries all the data
+
+
 using UnityEngine;
 
 public class Data
@@ -9,4 +10,6 @@ public class Data
         quarterSecond = new WaitForSeconds(0.25f),
         halfSecond = new WaitForSeconds(0.5f),
         fullSecond = new WaitForSeconds(1f);
+
+    public static float sfxVolume = 0.5f;
 }

@@ -27,6 +27,7 @@ public class Player : MonoBehaviour
     }
 
     public void Roll() {
+        SFX.playClick();
         PlayerData.performRoll = true;
     }
 

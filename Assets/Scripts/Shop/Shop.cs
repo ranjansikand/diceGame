@@ -62,6 +62,7 @@ public class Shop : MonoBehaviour
     }
 
     public void CloseShop() {  // Button
+        SFX.playClick();
         shopCanvas.SetActive(false);
     }
 }
