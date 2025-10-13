@@ -1,4 +1,4 @@
-// Card with a single check condition
+// Checks all die against a specific condition
 
 
 using System.Collections;
@@ -6,7 +6,7 @@ using UnityEngine;
 using DG.Tweening;
 using System.Linq;
 
-public class Single : CardData
+public class AllDie : CardData
 {
     [SerializeField] protected Operator op;
     [SerializeField] protected int amount;
@@ -16,9 +16,8 @@ public class Single : CardData
         foreach (Dice die in Player.dice) {
             if (conditions.Contains(die.value)) {
                 card.transform.DOScale(Vector3.one * 1.25f, 0.25f);
-                Perform(op, amount, die);
                 yield return Data.quarterSecond;
-            }
+            } else yield break;
         }
-    } 
+    }
 }

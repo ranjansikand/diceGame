@@ -14,6 +14,24 @@ public class CardData : Item
     public virtual IEnumerator Check(Card card) {
         yield return null;
     }
+
+    protected void Perform(Operator op, int amount, Dice die) {
+        switch (op) {
+            case (Operator.Points): {
+                PlayerData.score += amount; 
+                Dice.bonus(die, "+" + amount);
+                break;
+            }
+            case (Operator.Multipier): {
+                PlayerData.score *= amount; 
+                Dice.bonus(die, "x" + amount);
+                break;
+            }
+            case (Operator.Rerolls): PlayerData.rolls += amount; break;
+            case (Operator.Money): PlayerData.money += amount; break;
+            default: break;
+        }
+    }
 }
 
 public enum Operator {
