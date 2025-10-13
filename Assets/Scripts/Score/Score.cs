@@ -7,6 +7,8 @@ public static class Score
 {
     public static IEnumerator Calculate() {
         yield return ScoreDice();
+        yield return Data.halfSecond;
+        
         yield return ScoreCards();
         yield return Data.halfSecond;
     }

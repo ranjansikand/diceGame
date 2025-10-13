@@ -624,7 +624,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: -30}
-  m_SizeDelta: {x: 300, y: 200}
+  m_SizeDelta: {x: 260, y: 205}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &215018839
 MonoBehaviour:
@@ -646,8 +646,8 @@ MonoBehaviour:
   m_ChildAlignment: 0
   m_StartCorner: 0
   m_StartAxis: 0
-  m_CellSize: {x: 100, y: 100}
-  m_Spacing: {x: 0, y: 0}
+  m_CellSize: {x: 80, y: 100}
+  m_Spacing: {x: 10, y: 5}
   m_Constraint: 1
   m_ConstraintCount: 3
 --- !u!1 &319069993
@@ -1780,13 +1780,11 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 1eeb8391d6f89a44c895fbbcedf70e44, type: 3}
   - {fileID: 8300000, guid: c466d9c932a1bc640985ee440888ccf1, type: 3}
   click:
-  - {fileID: 8300000, guid: c77915325b1b38a4b9d133ddd797c34c, type: 3}
-  - {fileID: 8300000, guid: e828a7a3f8c12754f9e1733af8ab8a53, type: 3}
   - {fileID: 8300000, guid: a30bd6855abb5a14d9867073e43cd3af, type: 3}
-  - {fileID: 8300000, guid: f97bdc77079dc8b409ea306c223b6165, type: 3}
-  hover:
-  - {fileID: 8300000, guid: bafdad8bfb8880148ac99d39bd1859d5, type: 3}
-  - {fileID: 8300000, guid: bd82417e5e0c2ca428cfb4f385a114ef, type: 3}
+  - {fileID: 8300000, guid: be0763728a96b694bae1c9d6cdd1bd17, type: 3}
+  hoverDie: {fileID: 8300000, guid: bd82417e5e0c2ca428cfb4f385a114ef, type: 3}
+  hoverCard: {fileID: 8300000, guid: f97bdc77079dc8b409ea306c223b6165, type: 3}
+  hoverUI: {fileID: 8300000, guid: 2aa71bd71a4898d448923ccdaba3dec8, type: 3}
 --- !u!82 &903694803
 AudioSource:
   m_ObjectHideFlags: 0
@@ -2257,7 +2255,7 @@ Canvas:
   m_SortingBucketNormalizedSize: 0
   m_AdditionalShaderChannelsFlag: 25
   m_SortingLayerID: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_TargetDisplay: 0
 --- !u!224 &1159252127
 RectTransform:
@@ -2754,7 +2752,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a726126e7d828874e94fc7b40b867062, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dieValuePrefab: {fileID: 3817353326241671204, guid: f417809249231d942864474a8216a35b, type: 3}
+  dieValuePrefab: {fileID: -2313174441030543467, guid: f417809249231d942864474a8216a35b, type: 3}
 --- !u!1 &1511368427
 GameObject:
   m_ObjectHideFlags: 0

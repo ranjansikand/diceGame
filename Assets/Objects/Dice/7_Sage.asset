@@ -9,10 +9,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8bb17d9c8aacda44586028ff0e183396, type: 3}
-  m_Name: HighRoller
+  m_Script: {fileID: 11500000, guid: 59018b691a146104db45434c9ffb7887, type: 3}
+  m_Name: 7_Sage
   m_EditorClassIdentifier: 
-  Name: High Roller
-  Description: Rolls 3-8
-  color: {r: 1, g: 0.99775714, b: 0.85534585, a: 1}
-  values: 030000000400000005000000060000000700000008000000
+  Name: Sage
+  Description: +1 bonus per roll
+  color: {r: 0.5176471, g: 0.54509807, b: 0.4745098, a: 1}
+  values: 010000000200000003000000040000000500000006000000

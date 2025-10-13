@@ -62,16 +62,29 @@ public class Player : MonoBehaviour
         for (int i = 0; i < count; i++) {
             if (Player.dice[i] == skipDice) continue; // Skip the dragged die
 
-            Vector3 targetPos = new Vector3(startX + (i * spacing), 0f, 0f);
+            // Fix position
+            Vector3 targetPos = new Vector3(
+                startX + (i * spacing), 
+                Random.Range(-0.1f, 0.1f), 
+                0f
+            );
             
-            // Don't move if you don't have to
-            if (Player.dice[i].transform.position == targetPos) continue; 
-            Player.dice[i].transform
-                .DOMove(targetPos, 0.375f)
-                .SetEase(Ease.OutQuad);
-            Player.dice[i].transform
-                .DORotate(Vector3.zero, 0.375f)
-                .SetEase(Ease.OutQuad);
+            if (Vector3.Distance(Player.dice[i].transform.position, targetPos) > 1f) {
+                Player.dice[i].transform
+                    .DOMove(targetPos, 0.375f)
+                    .SetEase(Ease.OutQuad)
+                    .OnStart(() => Player.dice[i].bc.enabled = false)
+                    .OnComplete(() => Player.dice[i].bc.enabled = true);
+            }
+
+            // Fix rotation
+            Vector3 targetRot = new Vector3(0,0,Random.Range(-7.5f, 7.5f));
+
+            if (Mathf.Abs(Player.dice[i].transform.rotation.eulerAngles.z) > 7.5f) {
+                Player.dice[i].transform
+                    .DORotate(targetRot, 0.375f)
+                    .SetEase(Ease.OutQuad);
+            }
         }
     }
 }

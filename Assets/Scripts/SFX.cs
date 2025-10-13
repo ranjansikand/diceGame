@@ -8,9 +8,10 @@ public class SFX : MonoBehaviour
     AudioSource audioSource;
 
     public delegate void AudioEvent();
-    public static AudioEvent playClick, playHover;
+    public static AudioEvent playClick, playHoverDie, playHoverCard, playHoverUI;
 
-    [SerializeField] AudioClip[] diceRolls, click, hover;
+    [SerializeField] AudioClip[] diceRolls, click;
+    [SerializeField] AudioClip hoverDie, hoverCard, hoverUI;
 
     private void Awake() {
         audioSource = GetComponent<AudioSource>();
@@ -19,13 +20,17 @@ public class SFX : MonoBehaviour
     private void OnEnable() {
         Dice.rolled += DiceRoll;
         playClick += Click;
-        playHover += Hover;
+        playHoverDie += PlayHoverDie;
+        playHoverCard += PlayHoverCard;
+        playHoverUI += PlayHoverUI;
     }
 
     private void OnDisable() {
         Dice.rolled -= DiceRoll;
         playClick -= Click;
-        playHover -= Hover;
+        playHoverDie -= PlayHoverDie;
+        playHoverCard -= PlayHoverCard;
+        playHoverUI -= PlayHoverUI;
     }
 
     private void DiceRoll(Dice dice) {
@@ -44,10 +49,26 @@ public class SFX : MonoBehaviour
         );
     }
 
-    private void Hover() {
+    private void PlayHoverDie() {
         audioSource.pitch = Random.Range(0.9f, 1.1f);
         audioSource.PlayOneShot(
-            hover[Random.Range(0, hover.Length)], 
+            hoverDie,
+            Data.sfxVolume
+        );
+    }
+
+    private void PlayHoverCard() {
+        audioSource.pitch = Random.Range(0.9f, 1.1f);
+        audioSource.PlayOneShot(
+            hoverCard,
+            Data.sfxVolume
+        );
+    }
+
+        private void PlayHoverUI() {
+        audioSource.pitch = Random.Range(0.9f, 1.1f);
+        audioSource.PlayOneShot(
+            hoverUI,
             Data.sfxVolume
         );
     }

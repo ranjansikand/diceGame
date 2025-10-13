@@ -41,7 +41,7 @@ public class GameManager : MonoBehaviour
             activeManager = new RoundManager(this);
             yield return new WaitUntil(() => activeManager.complete);
 
-            scoreThreshold = Mathf.RoundToInt(scoreThreshold * 1.25f);
+            scoreThreshold = Mathf.RoundToInt(scoreThreshold * 1.5f);
         }
 
         Debug.Log("Player lost. Lost on rolls? " 

@@ -4,13 +4,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using TMPro;
 
 public class DieCounters : MonoBehaviour
 {
-    [SerializeField] TMP_Text dieValuePrefab;
+    [SerializeField] Counter dieValuePrefab;
 
-    List<TMP_Text> dieValueTrackers = new List<TMP_Text>();
+    List<Counter> dieValueTrackers = new List<Counter>();
 
     private void OnEnable() {
         Dice.rolled += Rolled;
@@ -26,36 +25,36 @@ public class DieCounters : MonoBehaviour
 
     private void Rolled(Dice dice) {
         if (dieValueTrackers.Count > 0) {
-            foreach (TMP_Text tracker in dieValueTrackers) {
+            foreach (Counter tracker in dieValueTrackers) {
                 tracker.gameObject.SetActive(false);
             }
         }
     }
 
     private void AddValueTracker(Dice dice) {
-        TMP_Text tracker = GetTracker();
-        tracker.transform.position = Camera.main.WorldToScreenPoint(dice.transform.position);
-        tracker.text = dice.value.ToString();
+        Counter tracker = GetTracker();
+        tracker.transform.position = Camera.main.WorldToScreenPoint(dice.transform.position + Vector3.up);
+        tracker.trackerText.text = dice.value.ToString();
 
         StartCoroutine(DeactivateTracker(tracker));
     }
 
     private void Bonus(Dice die, string message) {
-        TMP_Text tracker = GetTracker();
-        tracker.transform.position = Camera.main.WorldToScreenPoint(die.transform.position + Vector3.up);
-        tracker.text = message;
+        Counter tracker = GetTracker();
+        tracker.transform.position = Camera.main.WorldToScreenPoint(die.transform.position + Vector3.down);
+        tracker.trackerText.text = message;
 
         StartCoroutine(DeactivateTracker(tracker));
     }
 
-    private IEnumerator DeactivateTracker(TMP_Text tracker) {
+    private IEnumerator DeactivateTracker(Counter tracker) {
         yield return Data.halfSecond;
         tracker.gameObject.SetActive(false);
     }
     
     
     // Object Pool
-    public TMP_Text GetTracker() {
+    public Counter GetTracker() {
         for (int i = 0; i < dieValueTrackers.Count; i++) {
             if (!dieValueTrackers[i].gameObject.activeSelf) {
                 dieValueTrackers[i].gameObject.SetActive(true);
@@ -63,7 +62,7 @@ public class DieCounters : MonoBehaviour
             }
         }
 
-        TMP_Text newTracker = Instantiate(dieValuePrefab, transform);
+        Counter newTracker = Instantiate(dieValuePrefab, transform);
         dieValueTrackers.Add(newTracker);
         return newTracker;
     }

@@ -26,7 +26,7 @@ public class Shop : MonoBehaviour
 
     private void PopulateShop() {
         for (int i = 0; i < 6; i++) {  // Add 4 items to shop
-            int index = PickIndex(shopItems.Count);
+            int index = PickIndex();
             Item item = shopItems[index].items[Random.Range(0, shopItems[index].items.Count)];
             int price = Finance.PriceItem(item, index);
 
@@ -37,28 +37,16 @@ public class Shop : MonoBehaviour
     }
 
 
-    public static int PickIndex(int count) {
-        if (count <= 0) return -1; // no items
-        if (count == 1) return 0;  // only one item
+    public static int PickIndex() {
+        float rand = Random.Range(0f, 1f);
 
-        float rand = Random.value; // random 0..1
-        float cumulative = 0f;
-
-        for (int i = 0; i < count; i++) {
-            // Probability is halved each step
-            float probability = 1f / Mathf.Pow(2, i + 1);
-
-            // For the last item, scoop up any remainder
-            if (i == count - 1)
-                probability = 1f - cumulative;
-
-            cumulative += probability;
-
-            if (rand < cumulative)
-                return i;
+        if (rand <= 0.6f) {  // 60% common
+            return 0;
+        } else if (rand <= 0.9f) {  // 30% uncommon
+            return 1;
+        } else {  // 10% rare
+            return 2;
         }
-
-        return count - 1; // fallback (should never hit)
     }
 
     public void CloseShop() {  // Button

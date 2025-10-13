@@ -17,7 +17,7 @@ public class Dice : MonoBehaviour,
     public static ScoreEvent bonus, multiplier;
 
     private Rigidbody2D rb;
-    private BoxCollider2D bc;
+    public BoxCollider2D bc { get; private set; }
     [SerializeField] SpriteRenderer pip;
     [SerializeField] SpriteRenderer sr;
     private Transform die;
@@ -103,8 +103,8 @@ public class Dice : MonoBehaviour,
 
     #region Manipulation
     bool InMovementRange() {
-        if (Mathf.Abs(transform.position.x - originalPosition.x) > 1.5f &&
-            Mathf.Abs(transform.position.y) < 1.5f)
+        if (Mathf.Abs(transform.position.x - originalPosition.x) > 1.75f &&
+            Mathf.Abs(transform.position.y) < 2f)
         {
             return true;
         }
@@ -115,7 +115,7 @@ public class Dice : MonoBehaviour,
     public void OnPointerEnter(PointerEventData data) {
         if (PlayerData.dragging) return;
         
-        SFX.playHover();
+        SFX.playHoverDie();
         transform.DOScale(Vector3.one * 1.1f, 0.125f);
         Tooltip.instance.Show(diceData.Name, diceData.Description, data.position);
     }

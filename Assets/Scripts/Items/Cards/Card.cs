@@ -30,7 +30,7 @@ public class Card : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     public void OnPointerEnter(PointerEventData data) {
         if (PlayerData.dragging) return;
         
-        SFX.playHover();
+        SFX.playHoverCard();
         transform.DOScale(Vector3.one * 1.1f, 0.125f);
         Tooltip.instance.Show(cardData.Name, cardData.Description, data.position);
     }

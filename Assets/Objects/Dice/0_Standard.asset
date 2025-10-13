@@ -10,11 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8bb17d9c8aacda44586028ff0e183396, type: 3}
-  m_Name: Evens
+  m_Name: 0_Standard
   m_EditorClassIdentifier: 
-  Name: Evens
-  Description: 'Rolls 2, 4, or 6
-
-'
-  color: {r: 1, g: 0.8836478, b: 0.8836478, a: 1}
-  values: 020000000200000004000000040000000600000006000000
+  Name: D6
+  Description: Industry-standard D6
+  color: {r: 1, g: 1, b: 1, a: 1}
+  values: 010000000200000003000000040000000500000006000000

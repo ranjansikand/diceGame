@@ -15,7 +15,7 @@ public class Button : MonoBehaviour,
     public void OnPointerEnter(PointerEventData data) {
         if (PlayerData.dragging) return;
         
-        SFX.playHover();
+        SFX.playHoverUI();
         transform.DOScale(Vector3.one * 1.1f, 0.125f);
     }
 
