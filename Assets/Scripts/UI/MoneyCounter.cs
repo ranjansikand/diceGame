@@ -20,13 +20,14 @@ public class MoneyCounter : MonoBehaviour
     }
 
     private void MoneyUpdated() {
-        int amount = PlayerData.money - displayedValue;
+        int amount = PlayerData.money - displayedValue; 
 
         string text = amount > 0 ? "+ " : "- ";
-        text += "$" + amount;
+        text += "$" + (int)Mathf.Abs(amount);
 
         change.gameObject.SetActive(true);
         change.text = text;
+        SFX.playMoney(amount);
 
         Invoke(nameof(UpdateMoney), 0.75f);
     }
